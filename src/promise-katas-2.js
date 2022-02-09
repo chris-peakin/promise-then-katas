@@ -40,7 +40,16 @@ const cat = () => {
 // the naughtiest dog - expected return value {name: "Mutley", naughty: 10} of type Object
 
 const dog = () => {
-    return fetch("dogs").then(res => res.data.dogs.find(dog => Math.max(dog.naughty)));
+    return fetch("dogs").then(res => {
+        let naughtydog = res.data.dogs[0];
+        for (const dog of res.data.dogs){
+            if (dog.naughty > naughtydog?.naughty){
+                naughtydog = dog;
+            }
+        }
+        console.log(naughtydog);
+        return naughtydog;
+    })
 };
 
 // 4 Create a function that uses the fetch function to make requests to the "jokes" URL and returns
