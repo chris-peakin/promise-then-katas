@@ -63,7 +63,14 @@ const dog = () => {
 //
 
 const joke = () => {
-    return fetch("jokes").then()
+    const promise1 = fetch("jokes", "question").then(res => res.joke);
+    const promise2 = new Promise((resolve, reject) => {
+        setTimeout(resolve (fetch("jokes").then(res => res.answer)), 1000);
+    })
+    return Promise.all([promise1, promise2]).then((responses) => {
+        console.log({question: responses[0], answer: responses[1]});
+        return {question: responses[0], answer: responses[1]};
+    })
 };
 
 module.exports = {
